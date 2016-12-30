@@ -1,2 +1,4 @@
 # IDAPython-Scripts
-Either general idapython scripts I made for reversing or scripts I made for a specific executable 
+Either general IDAPython scripts I made to aid me in everyday reversing or scripts I made targeting a specific executable (e.g. deobfuscate a specific routine that is unlikely to appear in other executables). All IDAPython scripts I made from now on will be placed here. 
+
+
