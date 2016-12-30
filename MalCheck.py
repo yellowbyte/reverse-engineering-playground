@@ -21,7 +21,7 @@ def main():
 		print "no low-hanging fruits detected"
 	else: 
 		for i in badFunc: 
-			print i, ":", AntiDebugFunc[i]
+			print i, ":", MalFunc[i]
 
 if __name__ == '__main__': 
 	main()
