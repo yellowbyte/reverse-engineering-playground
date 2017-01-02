@@ -8,7 +8,6 @@ def main():
 	ea = ScreenEA()
 	maxAddr = MaxEA()
 	i = 0
-	check = 0 
 
 	while ea < maxAddr: 
 		PatchByte(ea, Byte(ea) ^ mask[i])
