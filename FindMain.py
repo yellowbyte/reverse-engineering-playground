@@ -2,7 +2,7 @@ import idautils
 import idaapi
 
 def main():
-	print "--------------- findMain ---------------"
+	print "--------------- FindMain ---------------"
 	
 	for func in idautils.Functions():
 		if GetFunctionName(func).lstrip("_") != "start": 
