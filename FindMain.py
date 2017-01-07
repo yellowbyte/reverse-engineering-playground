@@ -10,6 +10,7 @@ def main():
 		for addr in idautils.FuncItems(func): 
 			if GetMnem(addr) == "call": 
 				MakeName(LocByName(GetOpnd(PrevHead(addr, func), 0).split()[1]), "main")
+				Jump(LocByName("main"))
 				break
 
 main()
