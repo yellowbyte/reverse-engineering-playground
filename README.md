@@ -12,3 +12,6 @@ In a stripped ELF executable, automatically find and rename main as "main" and t
 
 ### MalCheck ###
 Checks an executable for usage of API that has a high chance of being used maliciously or for anti-reversing purposes such as IsDebuggerPresent. It's always a good idea to check for low-hanging fruits before doing any deeper analysis. The "potentially malicious" functions that I came up with are from the book "Practical Malware Analysis."
+
+### RdtscCheck ###
+rdtsc instruction puts the number of ticks since the last system reboot in EDX:EAX. There is really no point for a binary to contain this instruction other than for anti-debugging purpose. To use as a debugging deterrent, program will have this instruction at at least two different places in the .text section and then have a compare instruction that compares the time eclipsed between two rdtsc instructions. If a breakpoint is placed anywhere between two rdtsc instructions, then the time eclipsed between the two instructions will be significantly higher, signaling that it is running under a debugger.  
