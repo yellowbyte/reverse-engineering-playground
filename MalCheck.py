@@ -14,14 +14,14 @@ MalFunc = {
 def main(): 
 	print "--------------- MalCheck ---------------"
 
-	functions = [GetFunctionName(i) for i in idautils.Functions()]
-	badFunc = [i for i in functions if i in MalFunc.keys()]
+	functions = [GetFunctionName(func) for func in idautils.Functions()]
+	badFunc = [func for func in functions if func in MalFunc.keys()]
 
 	if(len(badFunc) == 0):
 		print "no low-hanging fruits detected"
 	else: 
-		for i in badFunc: 
-			print i, ":", MalFunc[i]
+		for func in badFunc: 
+			print func, ":", MalFunc[func]
 
 if __name__ == '__main__': 
 	main()
