@@ -10,7 +10,7 @@ def findArguments(funcAddr, parentAddr):
 	argNum = 0
 
 	while GetMnem(funcAddr) != "call" and GetMnem(funcAddr)[0] != "j" and funcAddr != parentAddr: #while the instruction is not a call or jcc or pass the start of a function
-		if GetMnem(funcAddr) == "mov" and "esp" in GetOpnd(funcAddr, 0): #a mov instruction that updates the stack
+		if GetMnem(funcAddr) == "mov" and "esp" in GetOpnd(funcAddr, 0): #a mov instruction that updates the stack. In GCC compiled 32-bits binary, mov instruction is used to put function arguments on stack instead of push instruction
 			argNum += 1
 		funcAddr = PrevHead(funcAddr, parentAddr)
 
