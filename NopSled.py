@@ -1,5 +1,5 @@
 def main():
-	print "---------- nopsled ----------"
+	print "---------- NopSled ----------"
 	
 	start = SelStart()
 	end = SelEnd()
