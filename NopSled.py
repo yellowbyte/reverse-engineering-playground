@@ -9,6 +9,5 @@ def main():
 	while start < end: 
 		PatchByte(start, 0x90)	
 		start += 1
-	print hex(start), hex(end), type(start)
 
 main()
