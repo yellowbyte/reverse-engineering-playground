@@ -32,3 +32,4 @@ Either convert the instructions that user select/highlight or the instruction th
 rdtsc instruction puts the number of ticks since the last system reboot in EDX:EAX. There is really no point for a binary to contain this instruction other than for anti-debugging purpose. To use as a debugging deterrent, program will have this instruction at at least two different places in the .text section and then have a compare instruction that compares the time eclipsed between two rdtsc instructions. If a breakpoint is placed anywhere between two rdtsc instructions, then the time eclipsed between the two instructions will be significantly higher, signaling that it is running under a debugger. This script checks the .text section for the rdtsc instructions and print out their addresses if they exist. 
 
 ### zeroSection ###
+NOTE: this is not a IDAPython script. It's just a python script that ....to be continue....
