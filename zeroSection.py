@@ -6,7 +6,7 @@ import struct
 def main(): 
 	print "---------- zeroSection ----------"
 
-	#read the content of the file in binary 
+	#open the file as stream of binary in read and write mode
 	filePath = sys.argv[1]
 	theFile = open(filePath, "r+b")
 
