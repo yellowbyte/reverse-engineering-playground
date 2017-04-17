@@ -22,7 +22,7 @@ def main():
 	theFile.write(b'\x00' * totalSize)
 	
 	#zero out section headers info. from ELF Header 
-	offsets = [0x20, 0x2e, 0x30]
+	offsets = [0x20, 0x2e, 0x30, 0x32] #e_shoff, e_shentsize, e_shnum, e_shstrndx
 	bytes = 4
 	for i in range(len(offsets)): 
 		if i == 1: #from index 1 and on, btyes to update is 2 
