@@ -23,10 +23,10 @@ def main():
 	
 	#zero out section headers info. from ELF Header 
 	offsets = [0x20, 0x2e, 0x30]
-	bytes = 2
+	bytes = 4
 	for i in range(len(offsets)): 
-		if i == 0:
-			bytes = 4
+		if i == 1: #from index 1 and on, btyes to update is 2 
+			bytes = 2
 		theFile.seek(offsets[i])	
 		theFile.write(b'\x00' * bytes)
 			
