@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import sys 
-import struct
 
 def main(): 
 	print "---------- zeroSection ----------"
