@@ -9,7 +9,6 @@ def main():
 	#read the content of the file in binary 
 	filePath = sys.argv[1]
 	theFile = open(filePath, "r+b")
-	contents = theFile.read()
 
 	#zero out e_shoff, pointer to start of section header table
 	theFile.seek(0x20)
