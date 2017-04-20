@@ -1,4 +1,4 @@
-# IDAPython_Scripts
+# IDAPython-scripts
 Either general IDAPython scripts I made to aid me in everyday reversing or IDAPython scripts I made targeting a specific executable (e.g. deobfuscate a specific routine that is unlikely to appear in other executables). All IDAPython scripts I made from now on will be placed here. 
 
 ### ARMdetect ###
