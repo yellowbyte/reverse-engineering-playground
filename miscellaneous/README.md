@@ -1,5 +1,5 @@
-### zeroSection ###
+### [zeroSection](https://github.com/yellowbyte/reverse-engineering-playground/blob/master/miscellaneous/zeroSection.py)
 Zeros out information about section headers from the ELF Header. Simply zero-ing out that information from the ELF Header renders many reversing tools (readelf, radare, objdump) unable to display information regarding a binary's sections, even if the section headers still exist. Experience reverser can still manually identify section header table without relying on the ELF Header, so the best way to hid information on sections is to zero out the section headers instead. This will not affect program execution since only program headers are required for execution.    
 
-### zeroSection2 ###
+### [zeroSection2](https://github.com/yellowbyte/reverse-engineering-playground/blob/master/miscellaneous/zeroSection2.py)
 Not only zeros out section headers information from the ELF Header, it also zero out the whole section headers table. Even though simply zero-ing out section headers information from ELF Header will already renders many reversing tools unable to identify sections, experienced reverser will still be able to manually identify where the section headers table is located. This script will make it impossible to identify sections at all.

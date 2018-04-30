@@ -4,14 +4,14 @@ def setup():
     # 7e, are equal. Also, my list doesn't include the more obscure jcc instructions such as those that jump depending
     # on the parity, sign, and overflow flags. 
     jumpMirror = {
-        0x77:0x72, #JA:JB
-        0x73:0x76, #JAE:JBE
-        0x74:0x75, #JE:JNE
-        0x7f:0x7c, #JG:JL
-        0x7d:0x7e, #JGE:JLE	
-        0x76:0x73, #JNA:JNB
-        0x72:0x77, #JNAE:JNBE
-        0x75:0x74, #JNZ:JZ
+        0x77:0x76, # JA:JBE
+        0x75:0x74, # JNZ:JZ
+        0x73:0x72, # JAE:JB
+        0x71:0x70, # JNO:JO
+        0x7f:0x7e, # JG:JLE
+        0x7d:0x7c, # JGE:JL	
+        0x7b:0x7a, # JNP:JP 
+        0x79:0x78, # JNS:JS
     }
 
     # Add in the pairs in reverse order. For example, the jumpMirror will match JA to JB but not JB to JA. This fixes that
