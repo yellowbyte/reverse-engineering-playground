@@ -1,6 +1,7 @@
 import idautils
 import idaapi
 
+
 MalFunc = {
 	"CheckRemoteDebuggerPresent" : "Checks to see if a specific process (including your own) is being debugged", 
 	"IsDebuggerPresent" : "Checks to see if the current process is being debugged",
@@ -11,17 +12,18 @@ MalFunc = {
 	"IsDebuggerPresent" : "Checks to see if the current process is being debugged", 
 }
 
+
 def main(): 
-	print "--------------- MalCheck ---------------"
+    print "--------------- MalCheck ---------------"
 
-	functions = [GetFunctionName(func) for func in idautils.Functions()]
-	badFunc = [func for func in functions if func in MalFunc.keys()]
+    functions = [GetFunctionName(func) for func in idautils.Functions()]
+    badFunc = [func for func in functions if func in MalFunc.keys()]
 
-	if(len(badFunc) == 0):
-		print "no low-hanging fruits detected"
-	else: 
-		for func in badFunc: 
-			print func, ":", MalFunc[func]
+    if(len(badFunc) == 0):
+        print "no low-hanging fruits detected"
+    else: 
+        for func in badFunc: 
+            print func, ":", MalFunc[func]
 
 if __name__ == '__main__': 
 	main()
