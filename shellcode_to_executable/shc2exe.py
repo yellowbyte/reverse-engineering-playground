@@ -1,7 +1,6 @@
 #!/usr/bin/env python2
 
 import os
-import sys
 import glob
 import lief
 import click
@@ -34,33 +33,33 @@ TEMPLATE_64 = ".intel_syntax noprefix\n" \
 "syscall\n" \
 
 
-class BinaryBuilder:
-    """    
+class BinaryBuilder(object):
+    """
     This class builds an executable binary from shellcode
-    """    
+    """
 
     def __init__(self, shellcode, executable_name, arch):
         self.shc = shellcode
         self.name = executable_name
         self.arch = {
-            "MD": MD_32 if arch=="x86" else MD_64,
-            "template": TEMPLATE_32 if arch=="x86" else TEMPLATE_64,
-            "extension": ".asm" if arch=="x86" else ".s",
-            "assemble": "nasm -f elf32 -o {0}.o {0}.asm" if arch=="x86" else
-                "gcc -c {0}.s", # Why GCC instead of NASM for x86-64:
-                                # Capstone incorrectly disassembled some x86-64
-                                # mov instruction as `movabs` instead of just 
-                                # `mov`. `movabs` is valid AT&T syntax but not
-                                # valid Intel syntax. Capstone is disassembling
-                                # all other instruction as Intel syntax but with
-                                # just the caveat of that mov instruction in AT&T.
-                                # NASM can only assemble Intel syntax assembly, thus
-                                # failed to assemble when it encountered `movabs`
-            "link": "ld -m elf_i386 -o {0} {0}.o" if arch=="x86" else
-                "ld -o {0} {0}.o"
+            "MD": MD_32 if arch == "x86" else MD_64,
+            "template": TEMPLATE_32 if arch == "x86" else TEMPLATE_64,
+            "extension": ".asm" if arch == "x86" else ".s",
+            "assemble": "nasm -f elf32 -o {0}.o {0}.asm" if arch == "x86" else
+                    "gcc -c {0}.s", # Why GCC instead of NASM for x86-64:
+                                    # Capstone incorrectly disassembled some x86-64
+                                    # mov instruction as `movabs` instead of just
+                                    # `mov`. `movabs` is valid AT&T syntax but not
+                                    # valid Intel syntax. Capstone is disassembling
+                                    # all other instruction as Intel syntax but with
+                                    # just the caveat of that mov instruction in AT&T.
+                                    # NASM can only assemble Intel syntax assembly, thus
+                                    # failed to assemble when it encountered `movabs`
+            "link": "ld -m elf_i386 -o {0} {0}.o" if arch == "x86" else
+                    "ld -o {0} {0}.o"
         }
         self.filename = os.path.join(
-            CURRENT_DIR, 
+            CURRENT_DIR,
             self.name+self.arch["extension"])
         self._disasm = None
         self._assembly = None
@@ -76,7 +75,7 @@ class BinaryBuilder:
         Disassembled shellcode
         """
         return self._disasm
-    
+ 
     @property
     def assembly(self):
         """
@@ -96,15 +95,15 @@ class BinaryBuilder:
         """
         Save data to file on disk
         """
-        with open(filename, "w") as f:
-            f.write(content)
+        with open(filename, "w") as _file:
+            _file.write(content)
 
     def _shc_disasm(self):
         """
         Disassemble shellcode
         """
         self._disasm = "\n".join(map(
-            lambda i: i.mnemonic+" "+i.op_str, 
+            lambda i: i.mnemonic+" "+i.op_str,
             self.arch["MD"].disasm(self.shc, 0x1000)))
 
     def _inject(self):
@@ -114,7 +113,10 @@ class BinaryBuilder:
         self._assembly = self.arch["template"].format(
             self._disasm)
 
-    def _parse_binary(self): 
+    def _parse_binary(self):
+        """
+        Use LIEF to get details regarding the executable binary
+        """
         self._binary = lief.parse(self.name)
 
     def _compile(self):
@@ -123,11 +125,11 @@ class BinaryBuilder:
         """
         self.to_disk(self.assembly, self.filename)
 
-        # compile to object file
+        # assemble to object file
         os.system(self.arch["assemble"].format(
             self.name))
 
-        # assemble to get executable
+        # link to get executable
         os.system(self.arch["link"].format(
             self.name))
         self._cleanup()
@@ -136,8 +138,8 @@ class BinaryBuilder:
         """
         Delete artifacts left by the compilation process
         """
-        for f in glob.glob(os.path.join(CURRENT_DIR, self.name+".*")):
-            os.remove(f)
+        for _file in glob.glob(os.path.join(CURRENT_DIR, self.name+".*")):
+            os.remove(_file)
 
 
 def get_shellcode(filepath):
@@ -146,7 +148,7 @@ def get_shellcode(filepath):
     """
     with open(filepath) as shellcode_file:
         _bytes = shellcode_file.read().strip().split(r"\x")
-        _bytes = [struct.pack("B",int(b,16)) for b in _bytes if b]
+        _bytes = [struct.pack("B", int(b, 16)) for b in _bytes if b]
         shellcode = "".join(_bytes)
     return shellcode
 
@@ -161,7 +163,7 @@ def main(path, arch, filename):
     shellcode = get_shellcode(path)
 
     _bin = BinaryBuilder(shellcode, filename, arch)
-    print("Inserted shellcode is at address: {}".format(_bin.va))
+    print "Inserted shellcode is at address: {}".format(_bin.va)
 
 if __name__ == "__main__":
     main()
