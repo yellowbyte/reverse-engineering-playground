@@ -10,12 +10,12 @@ class FrequencyAnalysis:
     """
 
     def __init__(self, _bytes):
-        self.bytes = _bytes
+        self.bytes = bytearray(_bytes)
 
     @property
     def distribution(self):
         analysis =  [0] * 256
-        for b in bytearray(self.bytes):
+        for b in self.bytes:
             analysis[b] += 1
         return analysis
 
@@ -40,8 +40,9 @@ class FrequencyAnalysis:
                       key=lambda x:x[1], 
                       reverse=True)[:num]
         for b in tops:
-            print('0x{:x}: {}'.format(b[0],b[1]))
-        return sorted(self.distribution, reverse=True)[:num]
+            print('byte 0x{:x}: {} occurrences'.format(b[0],b[1]))
+        print('')
+        print('Total file size: 0x{0:x} ({0}) bytes'.format(len(self.bytes)))
 
 
 if __name__ == '__main__':
