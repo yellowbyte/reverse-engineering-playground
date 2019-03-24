@@ -50,5 +50,5 @@ if __name__ == '__main__':
     with open(filepath, 'rb') as f:
         _bin = f.read()
     file_analysis = FrequencyAnalysis(_bin)
-    file_analysis.display_text(5)
+    file_analysis.display_text(num=5)
     file_analysis.display_graph()
