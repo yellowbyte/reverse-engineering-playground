@@ -21,7 +21,8 @@ class MultiDiff(object):
         """
         Get mutual bytes across all the files
         """
-        if (self.__mutual_bytes is not None) and (self.__data == self.binaries_data):
+        if (self.__mutual_bytes is not None) and \
+                (self.__data == self.binaries_data):
             # Previously have already calculated
             return self.__mutual_bytes
         self.__mutual_bytes = list()
@@ -32,11 +33,13 @@ class MultiDiff(object):
         for i, current_index_bytes in enumerate(zip(*self.__data)):
             one_sample = current_index_bytes[0]
             # XOR-ing 2 same bytes will equal 0
-            not_all_same = any(map(lambda x: x^one_sample, current_index_bytes[1:]))
+            not_all_same = any(map(lambda x: x^one_sample, 
+                                   current_index_bytes[1:]))
             if not not_all_same: # mutual byte detected
                 self.__current_size += 1
             else:
                 if self.__current_size >= self.desired_amount_same:
+                    # desired amount of mutual bytes detected. Take note
                     start, end = (i-self.__current_size, i)
                     self.__mutual_bytes.append((start, read_from[start:end]))
                 self.__current_size = 0
@@ -54,7 +57,10 @@ class MultiDiff(object):
         """
         for offset, matched_bytes in self.mutual_bytes:
             _bytes = ''.join(format(x, '02x') for x in matched_bytes)
-            print('0x{:x}: {}'.format(offset, _bytes))
+            ascii_representation = ''.join(map(
+                lambda x: chr(x) if 0x27 <= x <= 0x7e else '.', matched_bytes
+            ))
+            print('0x{:x}:\t{}\t{}'.format(offset, _bytes, ascii_representation))
 
 
 if __name__ == '__main__':
