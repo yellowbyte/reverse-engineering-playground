@@ -1,4 +1,4 @@
-### [shc2exe](https://github.com/yellowbyte/reverse-engineering-playground/blob/master/shellcode_to_executable/shc2exe.py) 
+### [shc2exe](https://github.com/yellowbyte/reverse-engineering-playground/blob/master/shellcode_analysis/shc2exe.py) 
 Given a file containing shellcode, it will wrap it into an executable binary so an analyst can perform live debugging on the shellcode.
 ```bash
 python shc2exe.py -a x86 sample_shc_32
